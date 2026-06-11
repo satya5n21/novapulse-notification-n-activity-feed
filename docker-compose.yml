@@ -1,0 +1,27 @@
+version: '3.8'
+
+name: novapulse-be
+
+services:
+  mongodb:
+    image: mongo:latest
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    # Starts Redis with the requirepass command flag to enforce password auth
+    command: redis-server --requirepass toor
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+
+volumes:
+  mongodata:
+  redisdata:
+
