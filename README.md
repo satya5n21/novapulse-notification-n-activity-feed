@@ -1,13 +1,11 @@
-# Real-Time Notification & Activity Feed System
-
+## Real-Time Notification & Activity Feed System
 - a backend module to power the notifications + live feed.
 - This can used in apps where events from multiple sources fan out to users in real time.
 
 ## Tech Stack
-
 - Runtime: Node
 - Language: Javascript + Express framework
-- Infra:
+- Infra: 
 
 | tech | Role |
 | -------- | ---- |
@@ -16,13 +14,12 @@
 | Redis Pub/Sub | Fan out events to connected clients in real time |
 
 ## Core Features
-
 1. Event Ingestion (`POST /events`):
     - Any service posts an event (e.g, `{type:task_completed, userId, payload}`),
     - saved to MongoDB
     - then published
 2. Redis Pub/Sub Fan-out
-    - A subscriber layer listens to Redis channels
+    - A subscriber layer listens to Redis channels 
     - and pushes updates to connected SSE/Websocket clients
 3. Notification Service
     - Reads events, generate per-user notificatoin, stores in MongoDB
