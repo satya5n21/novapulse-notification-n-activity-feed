@@ -29,3 +29,4 @@ export const EVENT_TYPES = [
     "followed",
     "post_liked"
 ];
+export const REDIS_EVENT_CAHNNEL = "novapulse:events";

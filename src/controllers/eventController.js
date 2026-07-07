@@ -2,9 +2,10 @@ import mongoose from 'mongoose';
 import Event from '../models/Event.js';
 import User from '../models/User.js';
 import { redisClient } from '../config/redis.js';
+import { REDIS_EVENT_CAHNNEL } from '../config/env.js'
 
 // ---- Helpers --------------------------------------------------
-const REDIS_CHANNEL = "novapulse:events";
+const REDIS_CHANNEL = REDIS_EVENT_CAHNNEL;
 
 // Builds the Redis message published after an event is saved
 const buildPublishPaylod = (event) => ({

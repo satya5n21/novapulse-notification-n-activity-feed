@@ -34,11 +34,13 @@ const createEventSchema = z.object({
         .default([])
 });
 
-// POST /api/events -- ingest a new event
-// GET /api/events -- list events (with filters)
-// GET /api/event/:id -- get single event by ID
+// ---- ingest a new event -----------
 router.post("/", validate(createEventSchema), ingestEvent);
+
+// ---- list events (with filters) ---
 router.get("/", getEvents);
+
+// ---- get single event by ID -------
 router.get("/:id", getEventById);
 
 export default router;
