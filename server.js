@@ -2,10 +2,12 @@ import app from './src/app.js';
 import { ENV } from './src/config/env.js';
 import { connectMongo, disconnectMongo } from './src/config/mongo.js';
 import { connectRedis, disconnectRedis } from './src/config/redis.js';
+import { startEventSubscriber } from './src/subscribers/eventSubscriber.js';
 
 const start = async () => {
     await connectMongo();
     await connectRedis();
+    await startEventSubscriber();
 
     const server = app.listen(ENV.PORT, () => {
         console.log(`[NovaPulse] Server running on port: ${ENV.PORT} (${ENV.NODE_ENV})`);

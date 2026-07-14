@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { EVENT_TYPES } from '../config/env';
+import { EVENT_TYPES } from '../config/env.js';
 
 const eventSchema = new mongoose.Schema({
     type: {
@@ -26,7 +26,7 @@ const eventSchema = new mongoose.Schema({
         default: []
     },
 
-    // Felxible payload - stores event-specific data 
+    // Felxible payload - stores event-specific data
     payload: {
         type: mongoose.Schema.Types.Mixed,
         default: {}

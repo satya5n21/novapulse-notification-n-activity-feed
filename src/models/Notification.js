@@ -1,5 +1,5 @@
 import mongoose, { mongo } from 'mongoose';
-import { EVENT_TYPES } from '../config/env';
+import { EVENT_TYPES } from '../config/env.js';
 
 const notificationSchema = new mongoose.Schema({
     userId: {

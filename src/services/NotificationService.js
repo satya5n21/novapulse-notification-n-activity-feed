@@ -25,7 +25,7 @@ const buildMessage = (eventType, payload, sourceName) => {
 // ---- Resolve target users ----------------------------
 // If targetUserIds is empty -> broadcast to ALL users subscribed to thisevent type.
 // If targetUserIds is provided -> filterdown to only those who are subscribed.
-// This means a user will never get a notification for an event type they 
+// This means a user will never get a notification for an event type they
 // opted out of, even if they were explicitly targeted.
 
 const resolveTargetUsers = async (eventType, targetUserIds) => {
@@ -74,7 +74,7 @@ export class NotificationService {
             message: buildMessage(type, payload, sourceName)
         }));
 
-        // 4. Bulk insert - ordered: false means one duplicate won't 
+        // 4. Bulk insert - ordered: false means one duplicate won't
         // block the rest (unique index on userId+eventId handles dupes)
         let inserted = [];
         try {

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { EVENT_TYPES } from '../config/env';
+import { EVENT_TYPES } from '../config/env.js';
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
 
 // Indexing for fast preference lookups during fan-out
 userSchema.index({ subscribedEventTypes: 1 });
-userSchema.index({ email: 1 }, { unique: true });
+// userSchema.index({ email: 1 }, { unique: true });
 
 const User = mongoose.model("User", userSchema);
 export default User;

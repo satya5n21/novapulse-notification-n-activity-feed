@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import Notification from '../models/Notification.js';
+import { success } from 'zod';
 
 const isValidObjectId = (id) => mongoose.Types.ObjectId.isValid(id);
 
@@ -63,7 +64,7 @@ export const getUnreadCount = async (req, res, next) => {
 
         const count = await Notification.countDocuments({ userId, read: false });
 
-        return res, status(200).json({
+        return res.status(200).json({
             success: true,
             data: { unreadCount: count }
         });
@@ -72,5 +73,63 @@ export const getUnreadCount = async (req, res, next) => {
     }
 }
 
-// ---- PATCH /api/notifications/:userId/read ------------------------------------
-export const markAsRead = async()   
+// ---- PATCH /api/notifications/:id/read ------------------------------------
+export const markAsRead = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        if (!isValidObjectId(id)) {
+            return res.status(400).json({
+                success: false,
+                error: { message: "Invalid notification ID format" }
+            });
+        }
+
+        const notification = await Notification.findByIdAndUpdate(
+            id,
+            { read: true },
+            { new: true }
+        ).lean();
+
+        if (!notification) {
+            return res.status(404).json({
+                success: false,
+                error: { message: `Notification ${id} not found.` }
+            });
+        };
+
+        return res.status(200).json({
+            success: true,
+            data: notification
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+// ---- PATCH /api/notifications/:userId/read-all ------------------------------------
+export const markAllAsRead = async (req, res, next) => {
+    try {
+        const { userId } = req.params;
+
+        if (!isValidObjectId(userId)) {
+            return res.status(400).json({
+                success: false,
+                error: { message: "Invalid userId format" }
+            });
+        }
+
+        const result = await Notification.updateMany(
+            { userId, read: false },
+            { read: true }
+        );
+
+        return res.status(200).json({
+            success: true,
+            data: { markedAsRead: result.modifiedCount }
+        })
+    } catch (error) {
+        next(error);
+    }
+}
+

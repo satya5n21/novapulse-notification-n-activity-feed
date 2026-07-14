@@ -5,7 +5,7 @@ import { REDIS_EVENT_CAHNNEL } from '../config/env.js';
 const CHANNEL = REDIS_EVENT_CAHNNEL;
 
 // In-memeory queue for messages that arrive while a previous one
-// is still being processed - prevents parallel DB writes for the 
+// is still being processed - prevents parallel DB writes for the
 // same batch, keeps processing sequential and predictable
 let isProcessing = false;
 const queue = [];
@@ -47,7 +47,7 @@ export const startEventSubscriber = async () => {
         if (channel !== CHANNEL) return;
 
         queue.push(message);
-        // Kick off processing - if already running, 
+        // Kick off processing - if already running,
         // the while loop above will pick up the newly queued item
         processQueue().catch((error) =>
             console.error(`[EventSubscriber] Queue error: ${error.message}`)
